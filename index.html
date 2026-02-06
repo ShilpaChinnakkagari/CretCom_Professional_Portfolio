@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shilpa's Terminal Shell</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Ultra Vibrant Defaults (Matrix) */
+            --primary: #00ff41;
+            --secondary: #00ffcc;
+            --accent: #ffff00;
+            --bg: #050505;
+            --glow: rgba(0, 255, 65, 0.85);
+            --border: rgba(0, 255, 65, 0.4);
+        }
+
+        .theme-matrix {
+            --primary: #00ff00;
+            --secondary: #00ff99;
+            --accent: #ccff00;
+            --bg: #000a00;
+            --glow: rgba(0, 255, 0, 0.9);
+            --border: rgba(0, 255, 0, 0.3);
+        }
+
+        .theme-cyber {
+            --primary: #00ffff;
+            --secondary: #ff00ff;
+            --accent: #fff000;
+            --bg: #050010;
+            --glow: rgba(0, 255, 255, 0.9);
+            --border: rgba(255, 0, 255, 0.4);
+        }
+
+        .theme-dracula {
+            --primary: #bc93ff;
+            --secondary: #ff79c6;
+            --accent: #50ff7b;
+            --bg: #1a1b26;
+            --glow: rgba(188, 147, 255, 0.9);
+            --border: rgba(255, 121, 198, 0.4);
+        }
+
+        .theme-amber {
+            --primary: #ffcc00;
+            --secondary: #ff8c00;
+            --accent: #ffffff;
+            --bg: #110900;
+            --glow: rgba(255, 204, 0, 0.9);
+            --border: rgba(255, 140, 0, 0.4);
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg);
+            color: var(--primary);
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .terminal-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            background: radial-gradient(circle at center, rgba(30, 30, 30, 0.3) 0%, var(--bg) 100%);
+        }
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, var(--glow) 0.1, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+            z-index: 20;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--glow);
+            border-radius: 4px;
+        }
+        .glow-text {
+            text-shadow: 0 0 10px var(--glow), 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background-color: var(--primary);
+            box-shadow: 0 0 15px var(--glow);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+
+        /* Make all text pop more */
+        pre, span, input {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.02em;
+        }
+
+        a:hover {
+            text-shadow: 0 0 15px var(--secondary);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.4/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <div class="scanline"></div>
+    <div class="crt-overlay"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
